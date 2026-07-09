@@ -1,0 +1,95 @@
+import java.util.*;
+
+public class SnakeAndLadder {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+
+        // Snakes
+        HashMap<Integer, Integer> snakes = new HashMap<>();
+        snakes.put(99, 54);
+        snakes.put(70, 55);
+        snakes.put(52, 42);
+        snakes.put(25, 2);
+        snakes.put(95, 72);
+
+        // Ladders
+        HashMap<Integer, Integer> ladders = new HashMap<>();
+        ladders.put(6, 25);
+        ladders.put(11, 40);
+        ladders.put(17, 69);
+        ladders.put(46, 90);
+        ladders.put(60, 85);
+
+        // Player Names
+        System.out.print("Enter Player 1 Name: ");
+        String player1 = sc.nextLine();
+
+        System.out.print("Enter Player 2 Name: ");
+        String player2 = sc.nextLine();
+
+        int position1 = 0;
+        int position2 = 0;
+
+        while (true) {
+
+            // Player 1 Turn
+            System.out.println("\n" + player1 + "'s Turn. Press Enter...");
+            sc.nextLine();
+
+            int dice = random.nextInt(6) + 1;
+            System.out.println(player1 + " rolled: " + dice);
+
+            if (position1 + dice <= 100)
+                position1 += dice;
+
+            if (ladders.containsKey(position1)) {
+                System.out.println(player1 + " got a Ladder!");
+                position1 = ladders.get(position1);
+            }
+
+            if (snakes.containsKey(position1)) {
+                System.out.println(player1 + " was bitten by a Snake!");
+                position1 = snakes.get(position1);
+            }
+
+            System.out.println(player1 + " Position: " + position1);
+
+            if (position1 == 100) {
+                System.out.println("\n🎉 " + player1 + " Wins the Game!");
+                break;
+            }
+
+            // Player 2 Turn
+            System.out.println("\n" + player2 + "'s Turn. Press Enter...");
+            sc.nextLine();
+
+            dice = random.nextInt(6) + 1;
+            System.out.println(player2 + " rolled: " + dice);
+
+            if (position2 + dice <= 100)
+                position2 += dice;
+
+            if (ladders.containsKey(position2)) {
+                System.out.println(player2 + " got a Ladder!");
+                position2 = ladders.get(position2);
+            }
+
+            if (snakes.containsKey(position2)) {
+                System.out.println(player2 + " was bitten by a Snake!");
+                position2 = snakes.get(position2);
+            }
+
+            System.out.println(player2 + " Position: " + position2);
+
+            if (position2 == 100) {
+                System.out.println("\n🎉 " + player2 + " Wins the Game!");
+                break;
+            }
+        }
+
+        sc.close();
+    }
+}
